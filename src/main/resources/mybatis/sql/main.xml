@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dkitec.mdm.portal.main.MainServiceDAO">
+    <resultMap id="noticeList" type="com.dkitec.mdm.portal.main.NoticeVO">
+        <result column="noticeNo" property="NOTICE_NO"/>
+        <result column="noticeSj" property="NOTICE_SJ"/>
+        <result column="noticeCn" property="NOTICE_CN"/>
+        <result column="creatDt" property="CREAT_DT"/>
+    </resultMap>
+
+    <select id="getNotice" resultMap="noticeList">
+        /*
+        SELECT
+          NOTICE_NO, NOTICE_SJ, NOTICE_CN, CREAT_DT
+        FROM
+           TBL_NOTICE
+        */
+        SELECT '1'  AS NOTICE_NO
+        FROM DUAL;
+    </select>
+
+</mapper>

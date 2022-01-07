@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    
+    <!-- by Gong changed -->
+    <!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" > -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" >
+        <property name="driverClassName" value="${rdb.default.driver}"/>
+        <property name="url" value="${rdb.default.url}"/>
+        <property name="username" value="${rdb.default.username}"/>
+        <property name="password" value="${rdb.default.password}"/>
+        <property name="maxTotal" value="${rdb.default.maxtotal}" />
+        <property name="maxIdle" value="${rdb.default.maxidle}" />
+        <property name="maxWaitMillis" value="${rdb.default.maxwaitmillis}" />
+        <property name="validationQuery" value="${rdb.default.validationquery}" />
+        <property name="testOnBorrow" value="${rdb.default.testonborrow}" />
+        <property name="testWhileIdle" value="${rdb.default.testwhileidle}" />
+    </bean>
+
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:mybatis/sql/**/*.xml" />
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+		<property name="configurationProperties">
+			<props>
+				<prop key="mdmEncKey">${common.enckey}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- mybatis mapper auto scanning -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.dkitec.mdm.portal" />
+        <property name="annotationClass" value="org.apache.ibatis.annotations.Mapper"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+    
+	<!-- transactionManager -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="add*" rollback-for="Exception"/>
+			<tx:method name="set*"  rollback-for="Exception"/>
+			<tx:method name="insert*" rollback-for="Exception"/>
+			<tx:method name="modify*" rollback-for="Exception"/>
+			<tx:method name="update*" rollback-for="Exception"/>
+			<tx:method name="change*" rollback-for="Exception"/>
+			<tx:method name="delete*" rollback-for="Exception"/>
+			<tx:method name="remove*" rollback-for="Exception"/>
+			<tx:method name="init*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="txPointCut" expression="execution(* com.dkitec.mdm.portal..*ServiceImpl.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+	</aop:config>
+</beans>

@@ -1,0 +1,1 @@
+var NEXT_URL = location.protocol+"//"+location.host;
