@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>REDWOOD HEALTH</title>
+    <script type="text/ecmascript" src="../../libs/properties.js"></script>
+    <script type="text/ecmascript" src="../../libs/jquery-3.3.1.min.js"></script>
+    <script type="text/ecmascript" src="../common/initView.js"></script>
+    <script type="text/ecmascript" src="qna.js"></script>
+    <style>
+        .insert{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div include-html="/portal/common/header.html"></div>
+<div class="contents">
+    <h3>문의하기</h3>
+    <div class="list-section">
+        <input type="button" id="btnCreate" value="문의등록"/>
+    </div>
+    <form class="insert">
+        <table>
+            <tbody>
+            <tr>
+                <td>이름</td>
+                <td><input type="text" class="createform qstnerName"/></td>
+            </tr>
+            <tr>
+                <td>전화번호</td>
+                <td><input type="text" class="createform qstnerMoblphon"/></td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td><input type="text" class="createform qstnerEmail"/></td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td><input type="text" class="createform questSj"/></td>
+            </tr>
+            <tr>
+                <td>본문</td>
+                <td><input type="text" class="createform questCn"/></td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td><input type="password" class="createform password"/></td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="button" id="btnSave" value="등록"/>
+        <input type="button" id="btnCancle" value="취소"/>
+    </form>
+</div>
+</body>
+</html>

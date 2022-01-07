@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dkitec.mdm.portal.support.qna.QnaServiceDAO">
+    <resultMap id="qnaItem" type="com.dkitec.mdm.portal.domain.QnaVO">
+        <result column="questNo" property="QUEST_NO"/>
+        <result column="questSj" property="QUEST_SJ"/>
+        <result column="questCn" property="QUEST_CN"/>
+        <result column="questDt" property="QUEST_DT"/>
+    </resultMap>
+    <select id="getQnaList" resultMap="qnaItem">
+        SELECT
+            QUEST_NO, QUEST_SJ, QUEST_CN, QUEST_DT
+        FROM
+            A_TBL_QNA_BOARD
+    </select>
+    <insert id="insertQna" parameterType="com.dkitec.mdm.portal.domain.QnaVO">
+        INSERT INTO A_TBL_QNA_BOARD
+            (QUEST_SJ, QUEST_CN, QSTNER_NAME, QSTNER_EMAIL, QSTNER_MOBLPHON
+             <if test="password!=null and password!=''">,PASSWORD</if>) VALUES
+            (#{questSj},#{questCn},#{qstnerName},#{qstnerEmail},#{qstnerMoblphon}
+             <if test="password!=null and password!=''">,#{password}</if>);
+    </insert>
+</mapper>

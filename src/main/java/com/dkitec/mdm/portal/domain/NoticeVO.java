@@ -1,4 +1,4 @@
-package com.dkitec.mdm.portal.main;
+package com.dkitec.mdm.portal.domain;
 
 public class NoticeVO {
     private int noticeNo;

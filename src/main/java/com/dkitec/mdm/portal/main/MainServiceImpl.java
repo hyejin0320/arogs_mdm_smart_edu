@@ -1,5 +1,7 @@
 package com.dkitec.mdm.portal.main;
 
+import com.dkitec.mdm.portal.domain.NoticeVO;
+import com.dkitec.mdm.portal.domain.QnaVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +26,10 @@ public class MainServiceImpl implements MainService{
     @Override
     public List<NoticeVO> getNoticeList() {
         return mainServiceDAO.getNotice();
+    }
+
+    @Override
+    public List<QnaVO> getQnaList() {
+        return mainServiceDAO.getQna();
     }
 }
