@@ -23,7 +23,6 @@ public class MainServiceImpl implements MainService{
 
     @Override
     public List<NoticeVO> getNoticeList() {
-        List<NoticeVO> test = mainServiceDAO.getNotice();
         return mainServiceDAO.getNotice();
     }
 }

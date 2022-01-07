@@ -5,6 +5,8 @@
          version="4.0">
     <display-name>MDM-PORTAL-Server</display-name>
 
+    <absolute-ordering></absolute-ordering>
+
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

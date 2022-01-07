@@ -2,6 +2,7 @@ $(document).ready(function(){
    $.ajax({
        type:"POST",
        url:NEXT_URL+"/main/main",
+       dataType:'json',
        contentType:"application/json; charset=utf-8",
        success: function(result){
            console.log(result);
@@ -10,7 +11,7 @@ $(document).ready(function(){
                var html = '<ul class="notice-list"></ul>';
                $('.contents').append(html);
                for (var i in result) {
-                   html = '<li>' + i + ' : ' + result[i].title + '</li>';
+                   html = '<li>' + i + ' : ' + result[i].noticeNo + '</li>';
                    $('.notice-list').append(html);
                }
            }

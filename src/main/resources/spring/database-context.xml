@@ -27,8 +27,8 @@
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:mybatis/sql/**/*.xml" />
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:mybatis/sql/*.xml" />
 		<property name="configurationProperties">
 			<props>
 				<prop key="mdmEncKey">${common.enckey}</prop>
@@ -39,19 +39,19 @@
 	<!-- mybatis mapper auto scanning -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.dkitec.mdm.portal" />
-        <property name="annotationClass" value="org.apache.ibatis.annotations.Mapper"/>
+        <property name="annotationClass" value="com.dkitec.mdm.portal.common.annotation.Mapper"/>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
 	
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>
-    
+
 	<!-- transactionManager -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-	
+
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>

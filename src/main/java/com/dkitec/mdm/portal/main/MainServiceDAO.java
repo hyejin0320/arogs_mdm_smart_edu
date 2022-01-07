@@ -1,6 +1,6 @@
 package com.dkitec.mdm.portal.main;
 
-import org.apache.ibatis.annotations.Mapper;
+import com.dkitec.mdm.portal.common.annotation.Mapper;
 
 import java.util.List;
 
