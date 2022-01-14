@@ -38,8 +38,8 @@
 	
 	<!-- mybatis mapper auto scanning -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.dkitec.mdm.portal" />
-        <property name="annotationClass" value="com.dkitec.mdm.portal.common.annotation.Mapper"/>
+		<property name="basePackage" value="com.dkitec.mdm.homepage" />
+        <property name="annotationClass" value="com.dkitec.mdm.homepage.common.annotation.Mapper"/>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
 	
@@ -69,7 +69,7 @@
 	</tx:advice>
 
 	<aop:config proxy-target-class="true">
-		<aop:pointcut id="txPointCut" expression="execution(* com.dkitec.mdm.portal..*ServiceImpl.*(..))"/>
+		<aop:pointcut id="txPointCut" expression="execution(* com.dkitec.mdm.homepage..*ServiceImpl.*(..))"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
 	</aop:config>
 </beans>

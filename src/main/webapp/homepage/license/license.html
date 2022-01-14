@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>REDWOOD HEALTH</title>
+
+    <link rel="stylesheet" type="text/css" href="../../libs/css/style-ui.css"/>
+
+    <script type="text/ecmascript" src="../../libs/jquery-3.4.1.min.js"></script>
+    <script type="text/ecmascript" src="../../libs/style-ui.js"></script>
+    <script type="text/ecmascript" src="../../libs/properties.js"></script>
+    <script type="text/ecmascript" src="../common/initView.js"></script>
+    <script type="text/ecmascript" src="license.js"></script>
+</head>
+</head>
+
+<body>
+<div class="wrapper">
+    <div include-html="/homepage/common/header.html"></div>
+
+    <div class="container">
+        <div class="snb">
+            <div class="snb-inner">
+                <div class="loc-left">
+                    <ol>
+                        <li><a href="#">홈</a></li>
+                        <li><a href="#">MDM 라이선스 신청</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="sub-top">
+            <div class="sub-title">
+                <h2>MDM 라이선스 신청<small>MDM License Subscription</small></h2>
+            </div>
+        </div>
+
+        <div class="contents">
+
+            <article>
+                <div class="tbl-form-title">
+                    <h3>MDM 라이선스 신청</h3>
+                    <span class="info-message">( * 표시는 필수 입력 사항입니다. )</span>
+                </div>
+
+                <div class="tbl-type--form">
+                    <table>
+                        <caption>라이센스 신청 입력폼</caption>
+                        <colgroup>
+                            <col style="width:120px">
+                            <col style="width:auto">
+                            <col style="width:180px">
+                            <col style="width:auto">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th>
+                                <span class="ico-star">학교명</span>
+                            </th>
+                            <td>
+                                <div>
+                                    <input type="text" class="input--st" placeholder="">
+                                </div>
+                            </td>
+                            <th>&nbsp;</th>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <span class="ico-star">학교주소</span>
+                            </th>
+                            <td>
+                                <div class="inp-btn-wrap">
+                                    <input type="text" class="input--st" placeholder="예) 불정로 90, 종로3길">
+                                    <button class="btn--st btn-major">주소검색</button>
+                                </div>
+                            </td>
+                            <th colspan="2">
+                                <div>
+                                    <input type="text" class="input--st" placeholder="상세 주소 입력">
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <span class="ico-star">이름</span>
+                            </th>
+                            <td>
+                                <div>
+                                    <input type="text" class="input--st" placeholder="">
+                                </div>
+                            </td>
+                            <th>&nbsp;</th>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <span class="ico-star">연락처</span>
+                            </th>
+                            <td>
+                                <div>
+                                    <input type="text" class="input--st" placeholder="">
+                                </div>
+                            </td>
+                            <th>
+                                <span class="ico-star">E-mail</span>
+                            </th>
+                            <td>
+                                <div>
+                                    <input type="text" class="input--st" placeholder="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <span class="ico-star">라이선스 수량</span>
+                            </th>
+                            <td>
+                                <div>
+                                    <input type="text" class="input--st" placeholder="100">
+                                </div>
+                            </td>
+                            <th>
+                                <span>지원 단말 모델</span>
+                            </th>
+                            <td>
+                                <div class="">
+                                    <ul class="chk-inline-wrap"><!-- 두줄이상시 class=" in-rows" 추가-->
+                                        <li>
+                                            <label class="chk--st">
+                                                <input type="checkbox" id="" name="" value="" checked>
+                                                <span class="chk-in-text">안드로이드</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="chk--st">
+                                                <input type="checkbox" id="" name="" value="">
+                                                <span class="chk-in-text">IOS</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="chk--st">
+                                                <input type="checkbox" id="" name="" value="">
+                                                <span class="chk-in-text">Window</span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tbl-bottom-btns">
+                    <button class="btn--st btn-major">신청</button>
+                </div>
+            </article>
+
+        </div>
+    </div>
+    <div include-html="/homepage/common/footer.html"></div>
+</div>
+</body>
+</html>

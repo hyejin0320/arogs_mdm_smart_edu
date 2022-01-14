@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dkitec.mdm.homepage.common.login.LoginDAO">
+    <resultMap id="user" type="com.dkitec.mdm.homepage.common.domain.UserBasicVO">
+        <result property="userId" column="USER_ID" />
+        <result property="userName" column="USER_NM" />
+        <result property="loginFailed" column="LOGIN_FAIL_NUM" />
+        <result property="password" column="USER_PWD" />
+        <result property="activation" column="USE_YN" />
+        <result property="token" column="USER_SESSN_ID" />
+    </resultMap>
+
+    <!-- 사용자 토큰 조회 -->
+    <select id="getUserToken" resultType="String">
+        select
+            USER_SESSN_ID
+        from
+            TB_USER_BAS
+        where
+            USER_ID = #{userId}
+    </select>
+</mapper>

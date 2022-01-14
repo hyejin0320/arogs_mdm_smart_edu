@@ -1,23 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dkitec.mdm.portal.support.qna.QnaServiceDAO">
-    <resultMap id="qnaItem" type="com.dkitec.mdm.portal.domain.QnaVO">
+<mapper namespace="com.dkitec.mdm.homepage.support.qna.QnaServiceDAO">
+    <resultMap id="qnaItem" type="com.dkitec.mdm.homepage.common.domain.QnaVO">
         <result column="questNo" property="QUEST_NO"/>
         <result column="questSj" property="QUEST_SJ"/>
         <result column="questCn" property="QUEST_CN"/>
         <result column="questDt" property="QUEST_DT"/>
+        <result column="unRspns" property="UN_RSPNS"/>
+        <result column="currentPage" property="CURRENT_PAGE"/>
     </resultMap>
+    <select id="getAllQnaList" resultMap="qnaItem">
+        SELECT
+        QUEST_NO, QUEST_SJ,
+        DATE_FORMAT(QUEST_DT, '%Y.%m.%d') AS QUEST_DT,
+        CONCAT(SUBSTRING(QSTNER_NAME,1,1), REPEAT('*', CHAR_LENGTH(QSTNER_NAME)-1)) AS QSTNER_NAME,
+        CASE WHEN RSPNS_CN IS NOT NULL THEN '답변완료' ELSE '답변대기' END AS UN_RSPNS,
+        CASE WHEN PASSWORD IS NOT NULL THEN 1 ELSE 0 END AS IS_SEALED
+        FROM
+        A_TBL_QNA_BOARD
+        WHERE
+        DEL_YN = 'N'
+        <if test='srchData!=null||srchData!=""'>
+            <choose>
+                <when test="srchCondition=='questSj'"> AND QUEST_SJ LIKE CONCAT('%', #{srchData}, '%') </when>
+                <when test="srchCondition=='questCn'"> AND QUEST_CN LIKE CONCAT('%', #{srchData}, '%') </when>
+                <when test="srchCondition=='qstnerName'"> AND QSTNER_NAME LIKE CONCAT('%', #{srchData}, '%') </when>
+                <otherwise> AND CONCAT(QUEST_SJ, QUEST_CN, QSTNER_NAME) LIKE CONCAT('%', #{srchData},'%') </otherwise>
+            </choose>
+        </if>
+        <choose>
+            <when test='sidx!=null||sidx!=""'>
+                <choose>
+                    <when test="sidx=='questSj'">
+                        <choose>
+                            <when test="sord=='asc'">ORDER BY QUEST_SJ ASC</when>
+                            <otherwise>ORDER BY QUEST_SJ DESC</otherwise>
+                        </choose>
+                    </when>
+                    <when test="sidx=='questDt'">
+                        <choose>
+                            <when test="sord=='asc'">ORDER BY QUEST_DT ASC</when>
+                            <otherwise>ORDER BY QUEST_DT DESC</otherwise>
+                        </choose>
+                    </when>
+                    <otherwise>ORDER BY QUEST_DT DESC</otherwise>
+                </choose>
+            </when>
+            <otherwise>ORDER BY QUEST_DT DESC</otherwise>
+        </choose>
+        <choose>
+            <when test="currentPage!=null and currentPage!='' and currentPage!=1"> LIMIT 10*#{currentPage} </when>
+            <otherwise>LIMIT 10</otherwise>
+        </choose>
+    </select>
+
     <select id="getQnaList" resultMap="qnaItem">
         SELECT
-            QUEST_NO, QUEST_SJ, QUEST_CN, QUEST_DT
+            QUEST_NO,
+            CASE WHEN CHAR_LENGTH(QUEST_SJ)>50 THEN SUBSTRING(QUEST_SJ, 1, 50) ELSE QUEST_SJ END AS QUEST_SJ,
+            DATE_FORMAT(QUEST_DT, '%Y.%m.%d') AS QUEST_DT,
+            CONCAT(SUBSTRING(QSTNER_NAME,1,1), REPEAT('*', CHAR_LENGTH(QSTNER_NAME)-1)) AS QSTNER_NAME,
+            CASE WHEN RSPNS_CN IS NOT NULL THEN '답변완료' ELSE '답변대기' END AS UN_RSPNS,
+            CASE WHEN PASSWORD IS NOT NULL THEN 1 ELSE 0 END AS IS_SEALED
         FROM
             A_TBL_QNA_BOARD
+        WHERE
+            DEL_YN = 'N'
+        <if test='srchData!=null||srchData!=""'>
+          <choose>
+              <when test="srchCondition=='questSj'"> AND QUEST_SJ LIKE CONCAT('%', #{srchData}, '%') </when>
+              <when test="srchCondition=='questCn'"> AND QUEST_CN LIKE CONCAT('%', #{srchData}, '%') </when>
+              <when test="srchCondition=='qstnerName'"> AND QSTNER_NAME LIKE CONCAT('%', #{srchData}, '%') </when>
+              <otherwise> AND CONCAT(QUEST_SJ, QUEST_CN, QSTNER_NAME) LIKE CONCAT('%', #{srchData},'%') </otherwise>
+          </choose>
+        </if>
+        <choose>
+            <when test='sidx!=null||sidx!=""'>
+                <choose>
+                    <when test="sidx=='questSj'">
+                        <choose>
+                            <when test="sord=='asc'">ORDER BY QUEST_SJ ASC</when>
+                            <otherwise>ORDER BY QUEST_SJ DESC</otherwise>
+                        </choose>
+                    </when>
+                    <when test="sidx=='questDt'">
+                        <choose>
+                            <when test="sord=='asc'">ORDER BY QUEST_DT ASC</when>
+                            <otherwise>ORDER BY QUEST_DT DESC</otherwise>
+                        </choose>
+                    </when>
+                    <otherwise>ORDER BY QUEST_DT DESC</otherwise>
+                </choose>
+            </when>
+            <otherwise>ORDER BY QUEST_DT DESC</otherwise>
+        </choose>
     </select>
-    <insert id="insertQna" parameterType="com.dkitec.mdm.portal.domain.QnaVO">
+    <insert id="insertQna" parameterType="com.dkitec.mdm.homepage.common.domain.QnaVO">
         INSERT INTO A_TBL_QNA_BOARD
             (QUEST_SJ, QUEST_CN, QSTNER_NAME, QSTNER_EMAIL, QSTNER_MOBLPHON
              <if test="password!=null and password!=''">,PASSWORD</if>) VALUES
             (#{questSj},#{questCn},#{qstnerName},#{qstnerEmail},#{qstnerMoblphon}
              <if test="password!=null and password!=''">,#{password}</if>);
     </insert>
+
+    <select id="getQnaDetail" parameterType="int" resultMap="qnaItem">
+        SELECT
+            QUEST_NO, QUEST_SJ, QUEST_CN,
+            DATE_FORMAT(QUEST_DT, '%Y.%m.%d') AS QUEST_DT,
+            CONCAT(SUBSTRING(QSTNER_NAME,1,1), REPEAT('*', CHAR_LENGTH(QSTNER_NAME)-1)) AS QSTNER_NAME,
+            REPLACE(QSTNER_EMAIL, SUBSTRING(QSTNER_EMAIL, 3, INSTR(QSTNER_EMAIL, '@')-3), REPEAT('*', INSTR(QSTNER_EMAIL, '@')-3)) AS QSTNER_EMAIL,
+            CONCAT(SUBSTRING(QSTNER_MOBLPHON,1,3), REPEAT('*', 4), SUBSTRING(QSTNER_MOBLPHON, 7,11)) AS QSTNER_MOBLPHON,
+            CASE WHEN RSPNS_CN IS NOT NULL THEN '답변완료' ELSE '답변대기' END AS UN_RSPNS,
+            CASE WHEN RSPNS_CN IS NOT NULL THEN RSPNS_CN ELSE '' END AS RSPNS_CN,
+            CASE WHEN RESPOND_ID IS NOT NULL THEN RESPOND_ID ELSE '' END AS RESPOND_ID,
+            CASE WHEN RSPNS_DT IS NOT NULL THEN RSPNS_DT ELSE '' END AS RSPNS_DT
+        FROM
+            A_TBL_QNA_BOARD
+        WHERE
+            QUEST_NO = #{questNo}
+            AND DEL_YN = 'N'
+            <if test='password!=null and password!=""'> AND PASSWORD=#{password} </if>
+    </select>
+
+    <select id="confirmPassword" parameterType="com.dkitec.mdm.homepage.common.domain.QnaVO" resultType="boolean">
+        SELECT
+            CASE WHEN PASSWORD=#{password} THEN TRUE ELSE FALSE END AS VALID
+        FROM
+            A_TBL_QNA_BOARD
+        WHERE
+            QUEST_NO=#{questNo}
+            AND DEL_YN = 'N'
+    </select>
+
+    <update id="updateQna" parameterType="com.dkitec.mdm.homepage.common.domain.QnaVO">
+        UPDATE A_TBL_QNA_BOARD SET DEL_YN='N'
+        <if test="questSj!=null||questSj!=''">,QUEST_SJ=#{questSj}</if>
+        <if test="questCn!=null||questCn!=''">,QUEST_CN=#{questCn}</if>
+        <if test="qstnerName!=null||qstnerName!=''">,QSTNER_NAME=#{qstnerName}</if>
+        <if test="qstnerEmail=null||qstnerEmail!=''">,QSTNER_EMAIL=#{qstnerEmail}</if>
+        <if test="qstnerMoblphon=null||qstnerMoblphon!=''">,QSTNER_MOBLPHON=#{qstnerMoblphon}</if>
+        <if test="password=null||password!=''">,PASSWORD=#{password}</if>
+        WHERE QUEST_NO=#{questNo};
+    </update>
+
+    <update id="removeQna">
+        UPDATE A_TBL_QNA_BOARD SET DEL_YN='Y' WHERE QUEST_NO=#{questNo};
+    </update>
 </mapper>

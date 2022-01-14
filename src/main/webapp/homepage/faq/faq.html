@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>REDWOOD HEALTH</title>
+
+    <link rel="stylesheet" type="text/css" href="../../libs/css/style-ui.css"/>
+
+    <script type="text/ecmascript" src="../../libs/jquery-3.4.1.min.js"></script>
+    <script type="text/ecmascript" src="../../libs/jqgrid.browser.filter.js"></script>
+    <script type="text/ecmascript" src="../../libs/jquery.jqGrid.min.js"></script>
+    <script type="text/ecmascript" src="../../libs/style-ui.js"></script>
+    <script type="text/ecmascript" src="../../libs/properties.js"></script>
+    <script type="text/ecmascript" src="../common/initView.js"></script>
+    <script type="text/ecmascript" src="faq.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div include-html="/homepage/common/header.html"></div>
+
+    <div class="container">
+        <div class="snb">
+            <div class="snb-inner">
+                <div class="loc-left">
+                    <ol>
+                        <li><a href="#">홈</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="sub-top">
+            <div class="sub-title">
+                <h2>FAQ<small>Frequently Asked Questions</small></h2>
+            </div>
+        </div>
+
+        <div class="contents">
+
+            <article>
+                <div class="tbl-top">
+                    <div class="tbl-top-left">
+                        <h3>FAQ</h3>
+                    </div>
+                    <div class="tbl-top-right">
+                        <select class="select--st">
+                            <option>전체</option>
+                            <option>옵션1</option>
+                            <option>옵션2</option>
+                        </select>
+                        <div class="input-search-wrap">
+                            <input type="text" placeholder="검색어 입력">
+                            <button class="bt-ico-search">검색버튼</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tbl-type--list">
+                    <table class="tbl-ellipsis">
+                        <caption>문의 관리 테이블</caption>
+                        <colgroup>
+                            <col style="width:88px">
+                            <col style="width:auto">
+                            <col style="width:200px">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>제목</th>
+                            <th>첨부파일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>10</td>
+                            <td class="td-link"><a href="#" class="a-link">별도의 사용설명서는 없나요?</a></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td class="td-link"><a href="#" class="a-link">별도의 사용설명서는 없나요?</a></td>
+                            <td><a href="#" class="a-link-download" download >다운로드</a></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td class="td-link"><a href="#" class="a-link">단말 분실 후 분실 단말의 위치가 잡히지 않습니다.</a></td>
+                            <td><a href="#" class="a-link-download" download >다운로드</a></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td class="td-link"><a href="#" class="a-link">수업용 앱 설치 문의</a></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td class="td-link"><a href="#" class="a-link">특정 앱 설치 차단을 하고 싶은데 방법 좀 알려주세요.</a></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td class="td-link"><a href="#" class="a-link">단말 분실 후 분실 단말의 위치가 잡히지 않습니다.</a></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td class="td-link"><a href="#" class="a-link">수업용 앱 설치 문의</a></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td class="td-link"><a href="#" class="a-link">단말 동기화가 되지 않습니다.</a></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td class="td-link"><a href="#" class="a-link">통신 환경 설정 문의</a></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td class="td-link"><a href="#" class="a-link">특정 앱 설치 차단을 하고 싶은데 방법 좀 알려주세요.</a></td>
+                            <td>-</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="paging-box">
+                    <div class="paging-box-center">
+                        <div class="paging">
+                            <a href="#" class="btn-first"></a>
+                            <a href="#" class="btn-prev"></a>
+                            <a href="#" class="active-page">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                            <a href="#">7</a>
+                            <a href="#">8</a>
+                            <a href="#">9</a>
+                            <a href="#">10</a>
+                            <a href="#" class="btn-next"></a>
+                            <a href="#" class="btn-last"></a>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+
+        </div>
+    </div>
+
+    <div include-html="/homepage/common/footer.html"></div>
+</div>
+</body>
+</html>

@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dkitec.mdm.portal.main.MainServiceDAO">
-    <resultMap id="noticeItem" type="com.dkitec.mdm.portal.domain.NoticeVO">
+<mapper namespace="com.dkitec.mdm.homepage.main.MainServiceDAO">
+    <resultMap id="noticeItem" type="com.dkitec.mdm.homepage.common.domain.NoticeVO">
         <result column="noticeNo" property="NOTICE_NO"/>
         <result column="noticeSj" property="NOTICE_SJ"/>
         <result column="noticeCn" property="NOTICE_CN"/>
         <result column="creatDt" property="CREAT_DT"/>
+        <result column="recent" property="recent"/>
     </resultMap>
-    <resultMap id="qnaItem" type="com.dkitec.mdm.portal.domain.QnaVO">
+    <resultMap id="qnaItem" type="com.dkitec.mdm.homepage.common.domain.QnaVO">
         <result column="questNo" property="QUEST_NO"/>
         <result column="questSj" property="QUEST_SJ"/>
         <result column="questCn" property="QUEST_CN"/>
         <result column="questDt" property="QUEST_DT"/>
+        <result column="recent" property="recent"/>
     </resultMap>
 
     <select id="getNotice" resultMap="noticeItem">
         SELECT
-          NOTICE_NO, NOTICE_SJ, NOTICE_CN, CREAT_DT
+        NOTICE_NO,
+        CASE WHEN CHAR_LENGTH(NOTICE_SJ)>50 THEN CONCAT(SUBSTRING(NOTICE_SJ, 50), '...') ELSE NOTICE_SJ END AS NOTICE_SJ
         FROM
            TBL_NOTICE
+        ORDER BY CREAT_DT DESC
+            LIMIT 4;
     </select>
     <select id="getQna" resultMap="qnaItem">
         SELECT
-            QUEST_NO, QUEST_SJ, QUEST_CN, QUEST_DT,
-            CASE WHEN QUEST_DT>DATE_ADD(NOW(), INTERVAL -7 DAY) THEN 'NEW' ELSE '' END RECENT,
-            CASE WHEN PASSWORD IS NOT NULL THEN 'Y' ELSE 'N' END IS_SEALED
+            QUEST_NO, QUEST_SJ,
+            CASE WHEN QUEST_DT>DATE_ADD(NOW(), INTERVAL -7 DAY) THEN 'new' ELSE '' END AS recent
         FROM
             A_TBL_QNA_BOARD
+        WHERE
+            DEL_YN = 'N'
         ORDER BY QUEST_DT DESC
             LIMIT 4;
     </select>
